@@ -1,7 +1,7 @@
-#!/bin/bash
+t=yes curses=no cairo=no#!/bin/bash
 
 # Die early if there is any problem
-set -x
+set -x -e
 
 # Install pre-requisites (these are included with Starcluster)
 
@@ -10,14 +10,38 @@ apt-get -y update && apt-get -y install git make gcc g++ bc zlib1g-dev python-pi
                     python-numpy python-matplotlib
 
 
+# Install Turtle
+cd /usr/local/src
+wget http://bioinformatics.rutgers.edu/Static/Software/Turtle/Turtle-0.3.1.tar.gz 
+#wget http://bioinformatics.rutgers.edu/Static/Software/Turtle/Turtle-0.3.tar.gz
+tar zxvf Turtle-0.3.1.tar.gz
+cd Turtle-0.3/
+make
+mv *Turtle32 *Turtle64 /usr/local/bin/
+
+# Install KAnalyze
+cd /usr/local/src
+#wget --timeout=1 --waitretry=0 --tries=2 --retry-connrefused "http://downloads.sourceforge.net/project/kanalyze/v0.9.3/kanalyze-0.9.3-linux.tar.gz"
+wget --timeout=10 --tries=20 --retry-connrefused --no-check-certificate --secure-protocol=TLSv1 http://downloads.sourceforge.net/project/kanalyze/v0.9.3/kanalyze-0.9.3-linux.tar.gz
+tar zxvf kanalyze-0.9.3-linux.tar.gz
+
+
+
+# Install QUAST
+cd /usr/local/src
+#wget --timeout=1 --waitretry=0 --tries=2 --retry-connrefused "http://downloads.sourceforge.net/project/quast/quast-2.3.tar.gz"
+wget --timeout=10 --tries=20 --retry-connrefused --no-check-certificate --secure-protocol=TLSv1 http://downloads.sourceforge.net/project/quast/quast-2.3.tar.gz
+tar zxvf quast-2.3.tar.gz
+
+
 
 # Install Tallymer
 cd /usr/local/src
 wget http://genometools.org/pub/genometools-1.5.1.tar.gz
 tar zxvf genometools-1.5.1.tar.gz
 cd genometools-1.5.1/
-make 64bit=yes curses=no cairo=no
-make 64bit=yes curses=no cairo=no install
+make 64bit=yes curses=no cairo=no errorcheck=no
+make 64bit=yes curses=no cairo=no errorcheck=no install
 
 
 
@@ -54,25 +78,6 @@ cd BFCounter/
 make
 mv ./BFCounter /usr/local/bin/
 
-# Install Turtle
-cd /usr/local/src
-wget http://bioinformatics.rutgers.edu/Static/Software/Turtle/Turtle-0.3.tar.gz
-tar zxvf Turtle-0.3.tar.gz
-cd Turtle-0.3/
-make
-mv *Turtle32 *Turtle64 /usr/local/bin/
-
-# Install KAnalyze
-cd /usr/local/src
-wget http://downloads.sourceforge.net/project/kanalyze/v0.9.3/kanalyze-0.9.3-linux.tar.gz
-tar zxvf kanalyze-0.9.3-linux.tar.gz
-
-
-# Install QUAST
-cd /usr/local/src
-wget http://downloads.sourceforge.net/project/quast/quast-2.3.tar.gz
-tar zxvf quast-2.3.tar.gz
-
 # Install FASTX-toolkit
 cd /usr/local/src
 curl -O http://hannonlab.cshl.edu/fastx_toolkit/libgtextutils-0.6.1.tar.bz2
@@ -80,11 +85,13 @@ tar xjf libgtextutils-0.6.1.tar.bz2
 cd libgtextutils-0.6.1/
 ./configure && make && make install
 
-cd /usr/local/src
-curl -O http://hannonlab.cshl.edu/fastx_toolkit/fastx_toolkit-0.0.13.2.tar.bz2
-tar xjf fastx_toolkit-0.0.13.2.tar.bz2
-cd fastx_toolkit-0.0.13.2/
-./configure && make && make install
+#cd /usr/local/src
+#curl -O http://hannonlab.cshl.edu/fastx_toolkit/fastx_toolkit-0.0.13.2.tar.bz2
+#tar xjf fastx_toolkit-0.0.13.2.tar.bz2
+#cd fastx_toolkit-0.0.13/
+#./configure && make && make install
+
+sudo apt-get install fastx-toolkit
 
 # Install Trimmomatic #
 cd /usr/local/src
@@ -102,16 +109,20 @@ make
 cp seqtk /usr/local/bin
 
 # install Java
-cd /usr/local/src
-wget http://uni-smr.ac.ru/archive/dev/java/JRE/7/JRE-7.51/jre-7u51-linux-x64.tar.gz 
-tar zxvf jre-7u51-linux-x64.tar.gz 
+sudo apt-get install default-jre
+#cd /usr/local/src
+#wget http://uni-smr.ac.ru/archive/dev/java/JRE/7/JRE-7.51/jre-7u51-linux-x64.tar.gz 
+#tar zxvf jre-7u51-linux-x64.tar.gz 
 
 
 # Install ipython
-cd /usr/local/src
-git clone https://github.com/ipython/ipython.git
-cd ipython
-python setup.py install
+
+#cd /usr/local/src
+#git clone https://github.com/ipython/ipython.git
+#cd ipython
+#python setup.py install
+
+sudo apt-get install ipython
 
 # Upgrade pyzmq, which is required by ipython notebook
 pip install pyzmq --upgrade
@@ -119,6 +130,7 @@ pip install pyzmq --upgrade
 # Upgrade some other packages required by ipython notebook to draw figures
 
 # numpy
+sudo pip install cython
 cd /usr/local/src
 git clone git://github.com/numpy/numpy.git numpy
 cd numpy
@@ -130,10 +142,13 @@ pip install --upgrade patsy
 apt-get install libfreetype6-dev
 apt-get install libpng-dev
 pip install matplotlib
+sudo apt-get install pkg-config
+sudo apt-get install libblas-dev liblapack-dev
 pip install seaborn
 pip install --upgrade six
 pip install --upgrade statsmodels
-pip install --upgrade tornado
+sudo pip install "Tornado>=4.0.0,<5.0.0"
+#pip install --upgrade tornado
 
 
 # Upgrade the latex install with a few recommended packages
@@ -141,7 +156,8 @@ apt-get -y install texlive-latex-recommended
 
 cd /usr/local/src
 # Install Velvet
-curl -O http://www.ebi.ac.uk/~zerbino/velvet/velvet_1.2.10.tgz
+#curl -O http://www.ebi.ac.uk/~zerbino/velvet/velvet_1.2.10.tgz
+sudo wget https://www.ebi.ac.uk/~zerbino/velvet/velvet_1.2.10.tgz
 tar xvzf velvet_1.2.10.tgz
 cd velvet_1.2.10/
 make 'MAXKMERLENGTH=49'
@@ -159,6 +175,7 @@ cd /usr/local/src
 git clone http://github.com/ged-lab/khmer.git
 cd khmer
 git checkout 2013-khmer-counting
+sed -i 's/http:\/\/pypi.python.org\/packages\/source\/d\/distribute\//https:\/\/pypi.python.org\/packages\/source\/d\/distribute\//g' /usr/local/src/khmer/python/distribute_setup.py
 make test
 
 cd /usr/local/src
