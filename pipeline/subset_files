@@ -1,0 +1,8 @@
+#!/bin/bash
+mkdir originFiles/
+mv iowa_prairie_0920.fa.* originFiles/
+head -n 1948 originFiles/iowa_prairie_0920.fa.1 > ./iowa_prairie_0920.fa.1
+head -n 3897 originFiles/iowa_prairie_0920.fa.2 > ./iowa_prairie_0920.fa.2
+head -n 5846 originFiles/iowa_prairie_0920.fa.3 > ./iowa_prairie_0920.fa.3
+head -n 7795 originFiles/iowa_prairie_0920.fa.4 > ./iowa_prairie_0920.fa.4
+head -n 9744 originFiles/iowa_prairie_0920.fa.5 > ./iowa_prairie_0920.fa.5

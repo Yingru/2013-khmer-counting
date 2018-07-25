@@ -9,6 +9,8 @@ apt-get -y update && apt-get -y install git make gcc g++ bc zlib1g-dev python-pi
                     python-dev python-jinja2 python-tornado python-nose screen  \
                     python-numpy python-matplotlib
 
+## clean up
+rm -r /usr/local/src/* 
 
 # Install Turtle
 cd /usr/local/src

@@ -200,7 +200,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_1_part1_22.time gt tallymer mkindex -mersize 22  -esa 1_part1 >1_part1_22.hist
 
 1_part1.mct: 1_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 1_part1 -counts -pl 8 -indexname 1_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 1_part1 -counts -pl 7 -indexname 1_part1 -minocc 1
 
 1_part1_22.count.time: 1_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -213,7 +213,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_2_part1_22.time gt tallymer mkindex -mersize 22  -esa 2_part1 >2_part1_22.hist
 
 2_part1.mct: 2_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 2_part1 -counts -pl 8 -indexname 2_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 2_part1 -counts -pl 7 -indexname 2_part1 -minocc 1
 
 2_part1_22.count.time: 2_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -226,7 +226,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_3_part1_22.time gt tallymer mkindex -mersize 22  -esa 3_part1 >3_part1_22.hist
 
 3_part1.mct: 3_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 3_part1 -counts -pl 8 -indexname 3_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 3_part1 -counts -pl 7 -indexname 3_part1 -minocc 1
 
 3_part1_22.count.time: 3_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -239,7 +239,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_4_part1_22.time gt tallymer mkindex -mersize 22  -esa 4_part1 >4_part1_22.hist
 
 4_part1.mct: 4_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 4_part1 -counts -pl 8 -indexname 4_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 4_part1 -counts -pl 7 -indexname 4_part1 -minocc 1
 
 4_part1_22.count.time: 4_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -252,7 +252,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_5_part1_22.time gt tallymer mkindex -mersize 22  -esa 5_part1 >5_part1_22.hist
 
 5_part1.mct: 5_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 5_part1 -counts -pl 8 -indexname 5_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 5_part1 -counts -pl 7 -indexname 5_part1 -minocc 1
 
 5_part1_22.count.time: 5_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -284,23 +284,23 @@ dsk_5_22.time:
 kanalyze: kanalyze_1.time kanalyze_2.time kanalyze_3.time kanalyze_4.time kanalyze_5.time
 kanalyze_1.time:
 	-echo 3 > /proc/sys/vm/drop_caches
-	time -o kanalyze_1.time /usr/local/src/jre1.7.0_51/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_1.out -f fasta -l 8 iowa_prairie_0920.fa.1
+	time -o kanalyze_1.time /usr/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_1.out -f fasta -l 8 iowa_prairie_0920.fa.1
 
 kanalyze_2.time:
 	-echo 3 > /proc/sys/vm/drop_caches
-	time -o kanalyze_2.time /usr/local/src/jre1.7.0_51/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_2.out -f fasta -l 8 iowa_prairie_0920.fa.2
+	time -o kanalyze_2.time /usr/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_2.out -f fasta -l 8 iowa_prairie_0920.fa.2
 
 kanalyze_3.time:
 	-echo 3 > /proc/sys/vm/drop_caches
-	time -o kanalyze_3.time /usr/local/src/jre1.7.0_51/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_3.out -f fasta -l 8 iowa_prairie_0920.fa.3
+	time -o kanalyze_3.time /usr/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_3.out -f fasta -l 8 iowa_prairie_0920.fa.3
 
 kanalyze_4.time:
 	-echo 3 > /proc/sys/vm/drop_caches
-	time -o kanalyze_4.time /usr/local/src/jre1.7.0_51/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_4.out -f fasta -l 8 iowa_prairie_0920.fa.4
+	time -o kanalyze_4.time /usr/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_4.out -f fasta -l 8 iowa_prairie_0920.fa.4
 
 kanalyze_5.time:
 	-echo 3 > /proc/sys/vm/drop_caches
-	time -o kanalyze_5.time /usr/local/src/jre1.7.0_51/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_5.out -f fasta -l 8 iowa_prairie_0920.fa.5
+	time -o kanalyze_5.time /usr/bin/java -jar /usr/local/src/kanalyze/kanalyze.jar count -k 22 -o kanalyze_5.out -f fasta -l 8 iowa_prairie_0920.fa.5
 
 # kmc benchmark k=22 including two steps
 kmc_two_steps: kmc kmc_dump
