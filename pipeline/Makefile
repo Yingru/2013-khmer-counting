@@ -38,6 +38,14 @@ kmerlist2: kmerlist2.fa
 
 
 # khmer benchmark
+BLOOM_HIST = bloom_1_1_22.hist bloom_2_1_22.hist bloom_3_1_22.hist bloom_4_1_22.hist bloom_5_1_22.hist \
+	bloom_1_5_22.hist bloom_2_5_22.hist bloom_3_5_22.hist bloom_4_5_22.hist bloom_5_5_22.hist \
+	bloom_1_20_22.hist bloom_2_20_22.hist bloom_3_20_22.hist bloom_4_20_22.hist bloom_5_20_22.hist
+
+BLOOM_COUNT = bloom_1_1_22.count.time bloom_2_1_22.count.time bloom_3_1_22.count.time bloom_4_1_22.count.time \
+	bloom_5_1_22.count.time
+
+
 khmer: $(BLOOM_HIST) $(BLOOM_COUNT)
 
 # error rate = 0.01
@@ -63,10 +71,6 @@ bloom_4_20_22.hist: HASH =  --threads 8 -k 22 -N 2 -x 2965590108
 bloom_5_20_22.hist: HASH =  --threads 8 -k 22 -N 2 -x 3553293421
 
 
-BLOOM_HIST = bloom_1_1_22.hist bloom_2_1_22.hist bloom_3_1_22.hist bloom_4_1_22.hist bloom_5_1_22.hist \
-	bloom_1_5_22.hist bloom_2_5_22.hist bloom_3_5_22.hist bloom_4_5_22.hist bloom_5_5_22.hist \
-	bloom_1_20_22.hist bloom_2_20_22.hist bloom_3_20_22.hist bloom_4_20_22.hist bloom_5_20_22.hist
-
 
 bloom_%_1_22.hist: iowa_prairie_0920.fa.%
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -82,9 +86,6 @@ bloom_%_20_22.hist: iowa_prairie_0920.fa.%
 	-echo 3 > /proc/sys/vm/drop_caches
 	time -o $@.time ${KHMER}/scripts/abundance-dist-single.py -s $(HASH) $^ $@
 
-
-BLOOM_COUNT = bloom_1_1_22.count.time bloom_2_1_22.count.time bloom_3_1_22.count.time bloom_4_1_22.count.time \
-	bloom_5_1_22.count.time
 
 bloom_%_1_22.kh: iowa_prairie_0920.fa.%
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -200,7 +201,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_1_part1_22.time gt tallymer mkindex -mersize 22  -esa 1_part1 >1_part1_22.hist
 
 1_part1.mct: 1_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 1_part1 -counts -pl 7 -indexname 1_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 1_part1 -counts -pl 6 -indexname 1_part1 -minocc 1
 
 1_part1_22.count.time: 1_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -213,7 +214,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_2_part1_22.time gt tallymer mkindex -mersize 22  -esa 2_part1 >2_part1_22.hist
 
 2_part1.mct: 2_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 2_part1 -counts -pl 7 -indexname 2_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 2_part1 -counts -pl 6 -indexname 2_part1 -minocc 1
 
 2_part1_22.count.time: 2_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -226,7 +227,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_3_part1_22.time gt tallymer mkindex -mersize 22  -esa 3_part1 >3_part1_22.hist
 
 3_part1.mct: 3_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 3_part1 -counts -pl 7 -indexname 3_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 3_part1 -counts -pl 6 -indexname 3_part1 -minocc 1
 
 3_part1_22.count.time: 3_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -239,7 +240,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_4_part1_22.time gt tallymer mkindex -mersize 22  -esa 4_part1 >4_part1_22.hist
 
 4_part1.mct: 4_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 4_part1 -counts -pl 7 -indexname 4_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 4_part1 -counts -pl 6 -indexname 4_part1 -minocc 1
 
 4_part1_22.count.time: 4_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
@@ -252,7 +253,7 @@ tallymer: 1_part1_22.hist 2_part1_22.hist 3_part1_22.hist 4_part1_22.hist 5_part
 	time -o mkindex_5_part1_22.time gt tallymer mkindex -mersize 22  -esa 5_part1 >5_part1_22.hist
 
 5_part1.mct: 5_part1_22.hist
-	gt tallymer mkindex -mersize 22 -esa 5_part1 -counts -pl 7 -indexname 5_part1 -minocc 1
+	gt tallymer mkindex -mersize 22 -esa 5_part1 -counts -pl 6 -indexname 5_part1 -minocc 1
 
 5_part1_22.count.time: 5_part1.mct kmerlist2.fa
 	-echo 3 > /proc/sys/vm/drop_caches
