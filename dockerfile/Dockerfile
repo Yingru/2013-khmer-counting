@@ -3,7 +3,7 @@ MAINTAINER yx59@duke.edu
 
 ENV PACKAGES git make gcc g++ bc zlib1g-dev python-pip \
 	     python-dev python-jinja2 python-tornado python-nose screen \
-	     python-numpy python-matplotlib wget curl unzip pkg-config
+	     python-numpy python-matplotlib wget curl unzip pkg-config time
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ${PACKAGES} 
