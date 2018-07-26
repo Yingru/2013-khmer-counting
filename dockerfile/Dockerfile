@@ -161,6 +161,7 @@ WORKDIR  /usr/local/src
 RUN git clone git://github.com/ged-lab/screed.git
 WORKDIR screed
 RUN git checkout 2013-khmer-counting
+RUN sed -i 's/while not line/while line and not line/g' /usr/local/src/screed/screed/fastq.py
 RUN python setup.py install
 
 
