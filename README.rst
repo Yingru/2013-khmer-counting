@@ -4,6 +4,9 @@ Running the khmer paper script pipeline
 
 :Date: June 9, 2014
 
+
+.. image:: https://mybinder.org/badge.svg :target: https://mybinder.org/v2/gh/Yingru/2013-khmer-counting.git/master?filepath=notebook
+
 Here are some brief notes on how to run the pipeline for our 2013
 khmer counting paper on an Amazon EC2 rental instance.  Using these
 commands you should be able to completely recapitulate the paper.
