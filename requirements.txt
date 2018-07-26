@@ -1,3 +1,4 @@
-matplotlib==2.2.2
-numpy==1.14.0
-seaborn==0.9.0
+# These will be installed to the python 2 environment
+matplotlib
+numpy
+seaborn
