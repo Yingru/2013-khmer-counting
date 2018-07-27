@@ -1,17 +1,27 @@
-# <font color='red'> Running the khmer paper script pipeline </font>
+- [<font color='red'> Running the khmer paper script pipeline </font>](#-font-color--red---running-the-khmer-paper-script-pipeline---font-)
+      - [2018-07-26](#2018-07-26)
+  * [1. Origin pipeline (AWS)](#1-origin-pipeline--aws-)
+    + [1.1 First, start up an EC2 instance using starcluster](#11-first--start-up-an-ec2-instance-using-starcluster)
+    + [1.2 Now, log in!](#12-now--log-in-)
+    + [1.3.1 Installing software and running script](#131-installing-software-and-running-script)
+    + [1.3.2 Installing necessary software](#132-installing-necessary-software)
+    + [1.3.3 Running the pipeline](#133-running-the-pipeline)
+    + [1.3.4 Producing the paper](#134-producing-the-paper)
+  * [2. Jetstream pipeline](#2-jetstream-pipeline)
+    + [2.1 Create a Jetstream instance](#21-create-a-jetstream-instance)
+    + [2.2 Download the datasets and corrected software_install.sh file](#22-download-the-datasets-and-corrected-software-installsh-file)
+    + [2.3 Run the pipeline](#23-run-the-pipeline)
+    + [2.4 Generate paper](#24-generate-paper)
+  * [3. Docker container pipeline](#3-docker-container-pipeline)
+    + [3.1 Build container from scratch](#31-build-container-from-scratch)
+    + [3.2 Get the docker container from dockerhub](#32-get-the-docker-container-from-dockerhub)
+  * [4. Singularity pipeline](#4-singularity-pipeline)
+    + [4.1 An easier way (current broken! need to fix)](#41-an-easier-way--current-broken--need-to-fix-)
+  * [[5. ipython notebook]() [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Yingru/2013-khmer-counting.git/master)](#-5-ipython-notebook-------binder--https---mybinderorg-badgesvg---https---mybinderorg-v2-gh-yingru-2013-khmer-countinggit-master-)
 
-#### 2018-07-26
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Yingru/2013-khmer-counting.git/master)
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-# Table of content
-[TOC]
 
-===================================================
-- [1. Original pipeline AWS](# 1. Origin pipeline (AWS))
-- [2. Jetstream pipeline](# 2. Jetstream pipeline)
-- [3.Docker container pipeline](# 3. Docker container pipeline)
-- [4. Singularity container pipeline](# 4. Docker container pipeline)
-- [5. ipython notebook]() [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Yingru/2013-khmer-counting.git/master)
 ## 1. Origin pipeline (AWS)
 following original [github](git@github.com:dib-lab/2013-khmer-counting.git)
 
