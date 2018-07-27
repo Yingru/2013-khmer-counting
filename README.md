@@ -250,30 +250,37 @@ docker run -v `pwd`:/tmp yingruxu/khmer_yingru:latest make KHMER=/usr/local/src/
 
 ## 4. Singularity pipeline
 
-### 4.1 An easier way (current broken! need to fix)
+### 4.1 An easier way (Fixed)
 An easier/dirtier way to create a `singularity` images would be convert from a **Dockerfile**. Try this command:
 ```
-#a. first install singularity
+#a.1 first install singularity (use the singularity 2.5+ version)
+ezs  # in jetstream
+
+#a.2 Or you can build from the source file
 sudo apt-get install libtool
 git clone https://github.com/singularityware/singularity.git
 cd singularity/
-git checkout 2.3.1
+git checkout 2.5.1
 ./autogen.sh 
 ./configure --prefix=/usr/local --sysconfdir=/etc
 make
 sudo make install
 
-
 #b. check your docker image list
 sudo docker images
 
-#c. create singularity image with 4024MB space and exts file system 
-singularity create -s 4024 khmer_yingru.simg
+#c.1 build singularity image from Dockerfile
+singularity pull docker://yingruxu/khmer_yingru  # create a khmer_yingru.simg image
 
-#d. build the singularity imag from dockerhub
+### c.2 need to more detailed check and debug (for reason I don't feel like debugging it...)
+#c.2a create singularity image with 4024MB space and exts file system  
+singularity create -s 4024 khmer_yingru.simg
+#c.2ab build the singularity imag from dockerhub
 singularity import khmer_yingru.simg docker://yingruxu/khmer_yingru:latest
 
 #e. run the singularity image
+cd pipeline/
+singularity run -B $PWD:/tmp khmer_yingru.simg    # you need to mount it on /tmp folder as this is the docker container entrypoint
 ```
 
 ----------------------------------------------------------------------------
