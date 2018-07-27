@@ -3,7 +3,8 @@ MAINTAINER yx59@duke.edu
 
 ENV PACKAGES git make gcc g++ bc zlib1g-dev python-pip \
 	     python-dev python-jinja2 python-tornado python-nose screen \
-	     python-numpy python-matplotlib wget curl unzip pkg-config time
+	     python-numpy python-matplotlib wget curl unzip pkg-config time \
+         ipython-notebook vim
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ${PACKAGES} 
@@ -179,4 +180,14 @@ RUN echo 'export PYTHONPATH=/usr/local/src/khmer/python' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:/usr/local/src/khmer/scripts' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:/usr/local/src/khmer/sandbox' >> ~/.bashrc
 #RUN source ~/.bashrc
+
+
+# specify the environment path
+ENV PYTHONPATH "/usr/local/src/khmer/python"
+ENV PATH "$PATH:/usr/local/src/khmer/scripts:/usr/local/src/khmer/sandbox"
+
+# entrypoint: 
+WORKDIR /tmp
+CMD make KHMER=/usr/local/src/khmer
+                                                                                                             187,1         Bot
 
