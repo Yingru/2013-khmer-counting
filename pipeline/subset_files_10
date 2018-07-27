@@ -1,0 +1,67 @@
+#!/bin/bash
+
+if [ -d "originFiles" ]; then
+  echo "Good, all the original large files will be in the originalFiles/ folder"
+else
+  mkdir originFiles
+fi
+
+
+
+# check if the files already in the folder, I don't want to overwrite the original files
+if [ -f "originFiles/iowa_prairie_0920.fa.1" ]; then
+  echo "Good, you have the iowa files in the backup :)"
+else
+  echo "moving files to originFiles/ first maybe?"
+  mv  iowa_prairie_0920.fa.* originFiles/
+fi
+
+if [ -f "originFiles/MH0001.trimmed.fa" ]; then
+  echo "Good, you have MH0001.trimmed.fa file in the backup :)"
+else
+  echo "moving files to originFiles/ first maybe?"
+  mv MH0001.trimmed.fa originFiles/  
+fi
+
+if [ -f "originFiles/ecoli_ref.fastq" ]; then
+  echo "Good, you have ecoli_ref.fastq file in the backup :)"
+else
+  echo "moving files to originFiles/ first maybe?"
+   mv ecoli_ref.fastq originFiles/
+fi
+
+
+# create the subset
+#head -n 1948880 originFiles/iowa_prairie_0920.fa.1 > ./iowa_prairie_0920.fa.1
+#head -n 3897760 originFiles/iowa_prairie_0920.fa.2 > ./iowa_prairie_0920.fa.2
+#head -n 5846640 originFiles/iowa_prairie_0920.fa.3 > ./iowa_prairie_0920.fa.3
+#head -n 7795520 originFiles/iowa_prairie_0920.fa.4 > ./iowa_prairie_0920.fa.4
+#head -n 9744398 originFiles/iowa_prairie_0920.fa.5 > ./iowa_prairie_0920.fa.5
+#head -n 8491680 originFiles/MH0001.trimmed.fa > ./MH0001.trimmed.fa
+#head -n 6000000 originFiles/ecoli_ref.fastq > ./ecoli_ref.fastq
+
+# output the lines
+wc -l iowa_prairie_0920.fa*
+wc -l MH0001.trimmed.fa
+wc -l ecoli_ref.fastq
+
+# echo the output
+echo "you should see the file size as:"
+echo "1948880 iowa_prairie_0920.fa.1"
+echo "3897760 iowa_prairie_0920.fa.2"
+echo "5846640 iowa_prairie_0920.fa.3"
+echo "7795520 iowa_prairie_0920.fa.4"
+echo "9744398 iowa_prairie_0920.fa.5"
+echo "8491680 MH0001.trimmed.fa"
+echo "6000000 ecoli_ref.fastq"
+echo "If they didn't match, CAUTION!"
+
+
+# note, original file size
+# 1. 19488798
+# 2. 38977596
+# 3. 58466394
+# 4. 77955192
+# 5. 97443990
+# MH0001.trimmed.fa 84916804
+# ecoli_ref.fastq   20000000
