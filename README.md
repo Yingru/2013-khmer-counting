@@ -4,6 +4,8 @@
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Yingru/2013-khmer-counting.git/master)
 
 # Table of content
+[TOC]
+
 ===================================================
 - [1. Original pipeline AWS](# 1. Origin pipeline (AWS))
 - [2. Jetstream pipeline](# 2. Jetstream pipeline)
