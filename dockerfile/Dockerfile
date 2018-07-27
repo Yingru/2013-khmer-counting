@@ -179,15 +179,10 @@ WORKDIR /usr/local/src
 RUN echo 'export PYTHONPATH=/usr/local/src/khmer/python' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:/usr/local/src/khmer/scripts' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:/usr/local/src/khmer/sandbox' >> ~/.bashrc
-#RUN source ~/.bashrc
 
 
-# specify the environment path
 ENV PYTHONPATH "/usr/local/src/khmer/python"
 ENV PATH "$PATH:/usr/local/src/khmer/scripts:/usr/local/src/khmer/sandbox"
 
-# entrypoint: 
 WORKDIR /tmp
 CMD make KHMER=/usr/local/src/khmer
-                                                                                                             187,1         Bot
-
