@@ -1,7 +1,15 @@
-# <font color=red'> Running the khmer paper script pipeline </font>
+# <font color='red'> Running the khmer paper script pipeline </font>
 
 #### 2018-07-26
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Yingru/2013-khmer-counting.git/master)
 
+# Table of content
+===================================================
+- [1. Original pipeline AWS](# 1. Origin pipeline (AWS))
+- [2. Jetstream pipeline](# 2. Jetstream pipeline)
+- [3.Docker container pipeline](# 3. Docker container pipeline)
+- [4. Singularity container pipeline](# 4. Docker container pipeline)
+- [5. ipython notebook]() [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Yingru/2013-khmer-counting.git/master)
 ## 1. Origin pipeline (AWS)
 following original [github](git@github.com:dib-lab/2013-khmer-counting.git)
 
@@ -9,7 +17,7 @@ Here are some brief notes on how to run the pipeline for our 2013 khmer counting
 
 The instructions below will reproduce all of the figures in the paper, and will then compile the paper from scratch using the new figures. Starting up a machine and get necessary data for reproduction: 
 
-=====================================================
+-------------------------------------------------------------------------
 ### 1.1 First, start up an EC2 instance using starcluster
 ` starcluster start -o -s 1 -i m2.2xlarge -n ami-999d49f0 pipeline`
 
@@ -86,12 +94,14 @@ Connect into the ipython notebook (it will be running at 'http://<your EC2 hostn
 Once you're connected in, select the 'khmer-counting' notebook (should be the only one on the list) and open it.  Once open, go to the 'Cell...' menu and select 'Run all'.
 
 Now go back to the command line and execute:
-`cd ../`
-`make`
+```
+cd ../
+make
+```
 
 and voila, 'khmer-counting.pdf' will contain the paper with the figures you just created.
 
-
+-------------------------------------------------------------------------
 ## 2. Jetstream pipeline
 <font color='red'> Key concept is that it is actually working at this moment. Today: 2018-07-26 </font>
 
@@ -134,6 +144,11 @@ cd pipeline/
 bash software_install.sh
 ```
 
+NOTE: we are aware that sometimes the installing will get interrupted, due to there are two links for the softwares are not stable. If you are lucky, clean the ` rm -r /usr/local/src/*` and re-run `bash software_install.sh` a few times, it should work.
+
+ If you are super in-patient, try to download the files by hand: it should be the two links to `KAnalyze` and `QUAST` causing the issue.
+
+
 ### 2.3 Run the pipeline
 - option A, you can choose to run the origin files, which may take up to a good few hours
 - option B, or you can run a smaller test files, just to get a taste of how's the workflow looks like
@@ -150,10 +165,30 @@ make KHMER=/usr/local/src/khmer
 
 Now you suppose to have all the files produced and ready to make plots.
 
+### 2.4 Generate paper
+This would be the same as in [1.3.4](# 1.3.4 producing the paper)
+```
+#a. copyig data
+make copydata
 
-## 2. Docker container pipeline
+#b. Run the ipython notebook server
+cd ../notebook
+ipython notebook --no-browser --ip=* --port=80 &
 
-### 2.1 Build container from scratch
+#c. checking hostname and loggin in your brower: http://hostname
+echo $hostname
+
+#d. on the top cell, click run all
+
+cd ../
+make 
+```
+The final results will be the paper itself. :)
+
+-------------------------------------------------------------------------
+## 3. Docker container pipeline
+
+### 3.1 Build container from scratch
 If you like to build the docker container from scratch (which may take around 30 mins), you can build from the dockerfile/Dockerfile
 ```
 #a. login into Jetstream instance (make sure you actually have the docker installed)
@@ -187,16 +222,53 @@ docker run -v `pwd`:/tmp khmer_yingru:v1 make khmer
 docker run  -it -v `pwd`:/tmp khmer_yingru:v1 
 ```
 
-### 2.2 Get the docker container from dockerhub
+### 3.2 Get the docker container from dockerhub
 A more convenient way is to pull the docker container from the dockerhub, in that way you don't need to wait for building it.
 ```
 #a. b.  steps are similar to previous one
 #c. pull the docker image
-docker pull yingruxu/khmer_yingru
+docker pull yingruxu/khmer_yingru:latest
 
 #d. run the docker images
 cd ../pipeline/
 docker run -v `pwd`:/tmp yingruxu/khmer_yingru:latest make KHMER=/usr/local/src/khmer
 ```
 
+----------------------------------------------------------------------------
+
+## 4. Singularity pipeline
+
+### 4.1 An easier way (current broken! need to fix)
+An easier/dirtier way to create a `singularity` images would be convert from a **Dockerfile**. Try this command:
+```
+#a. first install singularity
+sudo apt-get install libtool
+git clone https://github.com/singularityware/singularity.git
+cd singularity/
+git checkout 2.3.1
+./autogen.sh 
+./configure --prefix=/usr/local --sysconfdir=/etc
+make
+sudo make install
+
+
+#b. check your docker image list
+sudo docker images
+
+#c. create singularity image with 4024MB space and exts file system 
+singularity create -s 4024 khmer_yingru.simg
+
+#d. build the singularity imag from dockerhub
+singularity import khmer_yingru.simg docker://yingruxu/khmer_yingru:latest
+
+#e. run the singularity image
+```
+
+----------------------------------------------------------------------------
+
+## [5. ipython notebook]() [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Yingru/2013-khmer-counting.git/master)
+
+- Click the label, and launch to a Jupyter notebook environment. 
+- Go to folder `notebook`
+- You will find the `ipython-notebook`, play around with it !
 
